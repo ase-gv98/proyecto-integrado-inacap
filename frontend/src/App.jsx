@@ -6,6 +6,13 @@ import DashboardOIRS from './components/DashboardOIRS'
 import Inicio from './pages/Inicio'
 import Establecimientos from './pages/Establecimientos'
 import Prestaciones from './pages/Prestaciones'
+import EncuestaSatisfaccion from './pages/EncuestaSatisfaccion'
+import Footer from './components/Footer'
+import Institucion from './pages/Institucion'
+import Contacto from './pages/Contacto'
+import Programas from './pages/Programas'
+import Noticias from './pages/Noticias'
+import ParticipacionCiudadana from './pages/ParticipacionCiudadana'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import './App.css'
@@ -39,7 +46,15 @@ function App() {
           <Route path="/establecimientos" element={<Establecimientos />} />
           <Route path="/prestaciones" element={<Prestaciones />} />
           <Route path="/participacion-ciudadana" element={<SolicitudOIRSForm />} />
+          <Route path="/oirs" element={<SolicitudOIRSForm />} />
           <Route path="/consulta-estado" element={<ConsultaEstado />} />
+          <Route path="/encuesta-satisfaccion" element={<EncuestaSatisfaccion />} />
+          <Route path="/encuesta" element={<EncuestaSatisfaccion />} />
+          <Route path="/institucion" element={<Institucion />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/programas" element={<Programas />} />
+          <Route path="/noticias" element={<Noticias />} />
+          <Route path="/participacion" element={<ParticipacionCiudadana />} />
           <Route
             path="/acceso-funcionarios"
             element={
@@ -59,6 +74,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <Footer />
     </>
   )
 }

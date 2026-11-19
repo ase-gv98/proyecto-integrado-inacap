@@ -1,93 +1,152 @@
 import { Link } from 'react-router-dom'
 
 const accesos = [
-  { titulo: 'Agendar horas', texto: 'Solicite atención médica', icono: 'A', to: '/prestaciones' },
-  { titulo: 'Urgencias', texto: 'Información de atención urgente', icono: 'U', to: '/establecimientos' },
-  { titulo: 'OIRS', texto: 'Ingrese o revise una solicitud', icono: 'O', to: '/participacion-ciudadana' },
-  { titulo: 'Establecimientos', texto: 'Encuentre su centro de salud', icono: 'E', to: '/establecimientos' },
+  { titulo: 'Establecimientos de salud', texto: 'Consulta ubicación, horarios de atención, contactos y servicios de nuestros establecimientos.', icono: 'icon-building', to: '/establecimientos', clase: 'tarjeta-azul' },
+  { titulo: 'Prestaciones y programas', texto: 'Infórmate sobre las prestaciones disponibles y los programas de salud municipal.', icono: 'icon-stethoscope', to: '/prestaciones', clase: 'tarjeta-verde' },
+  { titulo: 'Atención ciudadana OIRS', texto: 'Ingresa consultas, reclamos, sugerencias o agradecimientos mediante el canal digital.', icono: 'icon-message', to: '/participacion-ciudadana', clase: 'tarjeta-naranja' },
+  { titulo: 'Encuesta de satisfacción', texto: 'Comparte tu experiencia de atención en nuestros establecimientos mediante una encuesta anónima.', icono: 'icon-heart', to: '/encuesta-satisfaccion', clase: 'tarjeta-rosa' },
 ]
+
+function Icono({ id }) {
+  return (
+    <svg className="icono" aria-hidden="true">
+      <use href={`/institutional-icons.svg#${id}`} />
+    </svg>
+  )
+}
 
 const noticias = [
   {
-    titulo: 'Campaña de vacunación de invierno',
-    fecha: '17 noviembre',
-    texto: 'Consulte los horarios disponibles en su CESFAM y lleve su carnet de salud.',
+    etiqueta: 'Noticia',
+    claseImagen: 'noticia-imagen-uno',
+    titulo: 'Mejoras en infraestructura de establecimientos de salud',
+    texto: 'Ejemplo de publicación sobre mejoras en espacios de atención.',
   },
   {
-    titulo: 'Atención de salud preventiva',
-    fecha: '15 noviembre',
-    texto: 'Reforzamos los controles preventivos para niños, mujeres y personas mayores.',
+    etiqueta: 'Actividad',
+    claseImagen: 'noticia-imagen-dos',
+    titulo: 'Campaña de vacunación',
+    texto: 'Ejemplo de información sobre actividades preventivas de salud.',
   },
   {
-    titulo: 'Nueva vía de atención ciudadana',
-    fecha: '12 noviembre',
-    texto: 'Puede ingresar y consultar el estado de sus solicitudes a través del portal OIRS.',
+    etiqueta: 'Comunicado',
+    claseImagen: 'noticia-imagen-tres',
+    titulo: 'Feria de salud en la comunidad',
+    texto: 'Ejemplo de actividad comunitaria y difusión de servicios de salud.',
   },
 ]
 
 function Inicio() {
   return (
     <div className="inicio-page">
-      <section className="hero-institucional">
-        <div className="container py-5">
-          <div className="row align-items-center min-vh-hero">
-            <div className="col-lg-7">
-              <span className="hero-kicker">Departamento de Salud Municipal</span>
-              <h1>Comprometidos con la salud de Padre Las Casas</h1>
+      <section className="hero">
+        <div className="contenedor hero-contenido">
+          <div className="hero-texto">
+              <span className="etiqueta">Salud municipal</span>
+              <h1>Una salud más cercana a nuestra comunidad</h1>
               <p>
-                Atención cercana, prevención y servicios de salud para toda nuestra comunidad.
+                Trabajamos por el bienestar de las personas de Padre Las Casas, con una red de establecimientos de salud, programas y servicios orientados a una atención de calidad, inclusiva y territorial.
               </p>
-              <div className="d-flex flex-wrap gap-3">
-                <Link className="btn hero-primary" to="/establecimientos">
-                  Buscar establecimiento
+              <div className="hero-botones">
+                <Link className="boton boton-azul" to="/establecimientos">
+                  <Icono id="icon-building" />
+                  Conocer establecimientos
+                  <Icono id="icon-arrow" />
                 </Link>
-                <Link className="btn hero-secondary" to="/participacion-ciudadana">
-                  Participación OIRS
+                <Link className="boton boton-verde" to="/participacion-ciudadana">
+                  <Icono id="icon-message" />
+                  Ingresar requerimiento OIRS
+                  <Icono id="icon-arrow" />
                 </Link>
               </div>
+          </div>
+          <div className="hero-imagen" role="img" aria-label="Imagen ilustrativa de un establecimiento de salud">
+            <div className="hero-mensaje">
+              <Icono id="icon-people" />
+              <p><strong>Comprometidos con la salud y el bienestar</strong><span>de nuestra comunidad</span></p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="quick-access-section">
-        <div className="container">
-          <div className="row g-3">
+      <section className="servicios" aria-label="Accesos a servicios">
+        <div className="contenedor grid-servicios">
             {accesos.map((acceso) => (
-              <div className="col-sm-6 col-lg-3" key={acceso.titulo}>
-                <Link className="quick-access-card" to={acceso.to}>
-                  <span className="quick-access-icon" aria-hidden="true">{acceso.icono}</span>
-                  <span>
-                    <strong>{acceso.titulo}</strong>
-                    <small>{acceso.texto}</small>
-                  </span>
-                </Link>
-              </div>
+              <article className={`tarjeta-servicio ${acceso.clase}`} key={acceso.titulo}>
+                <span className="servicio-icono" aria-hidden="true"><Icono id={acceso.icono} /></span>
+                <h2>{acceso.titulo}</h2>
+                <p>{acceso.texto}</p>
+                <Link to={acceso.to}>Ver información →</Link>
+              </article>
             ))}
+        </div>
+      </section>
+
+      <section className="compromiso">
+        <div className="contenedor compromiso-contenido">
+          <div className="compromiso-texto">
+            <span className="etiqueta">Nuestro compromiso</span>
+            <h2>Información clara y accesible para la comunidad</h2>
+            <p>
+              Entregamos información oportuna sobre el funcionamiento de la red de salud municipal,
+              sus establecimientos, servicios, programas y canales de participación ciudadana.
+            </p>
+            <Link className="boton boton-azul" to="/institucion">
+              <svg className="icono" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="7" r="3" />
+                <path d="M6 21v-3a6 6 0 0 1 12 0v3" />
+              </svg>
+              Conocer la institución
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <div className="compromiso-visual">
+            <div className="participacion-tarjeta">
+              <div className="participacion-icono">
+                <svg className="icono" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="7" r="3" />
+                  <circle cx="5" cy="10" r="2" />
+                  <circle cx="19" cy="10" r="2" />
+                  <path d="M6 21v-3a6 6 0 0 1 12 0v3" />
+                </svg>
+              </div>
+              <div>
+                <h3>Participación ciudadana</h3>
+                <p>Tu opinión y tus requerimientos nos ayudan a mejorar la atención de salud en la comuna.</p>
+                <Link to="/participacion">Conocer los canales de participación →</Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="news-section">
-        <div className="container py-5">
-          <div className="section-heading">
+      <section className="noticias">
+        <div className="contenedor">
+          <div className="noticias-encabezado">
             <div>
-              <p className="oirs-eyebrow">Información comunitaria</p>
-              <h2>Avisos y noticias importantes</h2>
+              <span className="etiqueta">Actualidad</span>
+              <h2>Noticias y actividades</h2>
+              <p>Revisa noticias, actividades y comunicados del Departamento de Salud Municipal.</p>
             </div>
+            <Link className="boton boton-contorno" to="/noticias">
+              Ver todas las noticias <span aria-hidden="true">→</span>
+            </Link>
           </div>
-          <div className="row g-4">
+          <p className="aviso-demostracion">
+            Publicaciones destacadas del portal. Las noticias del prototipo se actualizan en este navegador.
+          </p>
+          <div className="grid-noticias" id="noticias-inicio">
             {noticias.map((noticia) => (
-              <div className="col-md-4" key={noticia.titulo}>
-                <article className="news-card card h-100">
-                  <div className="card-body">
-                    <span className="news-date">{noticia.fecha}</span>
-                    <h3>{noticia.titulo}</h3>
-                    <p>{noticia.texto}</p>
-                    <button type="button" className="news-link">Leer aviso</button>
-                  </div>
-                </article>
-              </div>
+              <article className="tarjeta-noticia" key={noticia.titulo}>
+                <div className={`noticia-imagen ${noticia.claseImagen}`}>
+                  <span>{noticia.etiqueta}</span>
+                </div>
+                <div className="noticia-contenido">
+                  <h3>{noticia.titulo}</h3>
+                  <p>{noticia.texto}</p>
+                  <Link to="/noticias">Leer más →</Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>

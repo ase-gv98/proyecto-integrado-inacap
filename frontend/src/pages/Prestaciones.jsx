@@ -23,41 +23,31 @@ const prestaciones = [
 
 function Prestaciones() {
   return (
-    <main className="page-shell">
-      <div className="container py-5">
-        <div className="page-heading text-center mb-5">
-          <p className="oirs-eyebrow">Atención primaria</p>
-          <h1>Prestaciones disponibles</h1>
-          <p>Conozca los principales servicios ofrecidos por la red municipal de salud.</p>
+    <main>
+      <section className="pagina-encabezado">
+        <div className="contenedor">
+          <div className="migas"><a href="/">Inicio</a><span>/</span><span>Prestaciones y programas</span><span>/</span><span>Prestaciones</span></div>
+          <span className="etiqueta">Atención primaria</span>
+          <h1>Prestaciones de salud</h1>
+          <p>Conoce las prestaciones y actividades de salud que forman parte de la atención primaria municipal, organizadas según las áreas de atención.</p>
         </div>
-
-        <div className="accordion prestations-accordion" id="prestacionesAccordion">
-          {prestaciones.map((prestacion, index) => (
-            <div className="accordion-item" key={prestacion.id}>
-              <h2 className="accordion-header" id={`heading-${prestacion.id}`}>
-                <button
-                  className={`accordion-button ${index === 0 ? '' : 'collapsed'}`}
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#collapse-${prestacion.id}`}
-                  aria-expanded={index === 0 ? 'true' : 'false'}
-                  aria-controls={`collapse-${prestacion.id}`}
-                >
-                  {prestacion.titulo}
-                </button>
-              </h2>
-              <div
-                id={`collapse-${prestacion.id}`}
-                className={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`}
-                aria-labelledby={`heading-${prestacion.id}`}
-                data-bs-parent="#prestacionesAccordion"
-              >
-                <div className="accordion-body">{prestacion.descripcion}</div>
-              </div>
-            </div>
-          ))}
+      </section>
+      <section className="prestaciones-seccion">
+        <div className="contenedor">
+          <span className="etiqueta">Servicios de salud</span>
+          <h2 className="prestaciones-titulo">Explora nuestras prestaciones</h2>
+          <p className="prestaciones-introduccion">Selecciona un área de atención o utiliza el buscador para encontrar prestaciones específicas.</p>
+          <div className="prestaciones-grid">
+            {prestaciones.map((prestacion) => (
+              <article className="prestacion-tarjeta" key={prestacion.id}>
+                <div className="prestacion-icono"><svg className="icono" aria-hidden="true"><use href="/institutional-icons.svg#icon-stethoscope" /></svg></div>
+                <h3>{prestacion.titulo}</h3>
+                <p>{prestacion.descripcion}</p>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   )
 }
