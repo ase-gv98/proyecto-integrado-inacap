@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import API_URL from '../services/apiConfig'
 
 const tiposSolicitud = [
   { value: 'Reclamo', label: 'Reclamo', icon: '!', description: 'Inconformidad con un servicio' },
@@ -71,7 +72,7 @@ function SolicitudOIRSForm() {
     setSubmitting(true)
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/solicitudes-publicas/',
+        `${API_URL}/api/solicitudes-publicas/`,
         form,
       )
       setFolio(response.data.folio)

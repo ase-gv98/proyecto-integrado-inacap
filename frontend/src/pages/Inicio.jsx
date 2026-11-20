@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getWordPressPosts } from '../services/wordpressService'
 
 const accesos = [
   { titulo: 'Establecimientos de salud', texto: 'Consulta ubicación, horarios de atención, contactos y servicios de nuestros establecimientos.', icono: 'icon-building', to: '/establecimientos', clase: 'tarjeta-azul' },
@@ -37,6 +39,22 @@ const noticias = [
 ]
 
 function Inicio() {
+  const [noticiasDestacadas, setNoticiasDestacadas] = useState(noticias)
+
+  useEffect(() => {
+    let activo = true
+    getWordPressPosts(3)
+      .then((publicaciones) => {
+        if (activo && publicaciones?.length) {
+          setNoticiasDestacadas(publicaciones)
+        }
+      })
+      .catch(() => {})
+    return () => {
+      activo = false
+    }
+  }, [])
+
   return (
     <div className="inicio-page">
       <section className="hero">
@@ -132,13 +150,13 @@ function Inicio() {
               Ver todas las noticias <span aria-hidden="true">→</span>
             </Link>
           </div>
-          <p className="aviso-demostracion">
-            Publicaciones destacadas del portal. Las noticias del prototipo se actualizan en este navegador.
-          </p>
           <div className="grid-noticias" id="noticias-inicio">
-            {noticias.map((noticia) => (
-              <article className="tarjeta-noticia" key={noticia.titulo}>
-                <div className={`noticia-imagen ${noticia.claseImagen}`}>
+            {noticiasDestacadas.map((noticia) => (
+              <article className="tarjeta-noticia" key={noticia.id || noticia.titulo}>
+                <div
+                  className={`noticia-imagen ${noticia.claseImagen}`}
+                  style={noticia.imagen ? { backgroundImage: `url("${noticia.imagen}")` } : undefined}
+                >
                   <span>{noticia.etiqueta}</span>
                 </div>
                 <div className="noticia-contenido">

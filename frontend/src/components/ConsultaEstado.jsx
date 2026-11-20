@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import API_URL from '../services/apiConfig'
 
 const estadoBadges = {
   Ingresado: 'bg-primary',
@@ -42,7 +43,7 @@ function ConsultaEstado() {
     setSearching(true)
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/solicitudes-publicas/estado/${encodeURIComponent(folioNormalizado)}/`,
+        `${API_URL}/api/solicitudes-publicas/estado/${encodeURIComponent(folioNormalizado)}/`,
       )
       setResultado(response.data)
     } catch (requestError) {

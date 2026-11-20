@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import API_URL from '../services/apiConfig'
 
 const estadoBadge = {
   Ingresado: 'bg-primary',
@@ -43,7 +44,7 @@ function DashboardOIRS({ usuario, onLogout }) {
       try {
         const accessToken = localStorage.getItem('oirs_access_token')
         const response = await axios.get(
-          'http://127.0.0.1:8000/api/solicitudes/',
+          `${API_URL}/api/solicitudes/`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -69,7 +70,7 @@ function DashboardOIRS({ usuario, onLogout }) {
     const loadDepartamentos = async () => {
       try {
         const response = await axios.get(
-          'http://127.0.0.1:8000/api/departamentos/',
+          `${API_URL}/api/departamentos/`,
           { headers: getAuthHeaders() },
         )
         setDepartamentos(response.data.results || response.data)
@@ -95,13 +96,13 @@ function DashboardOIRS({ usuario, onLogout }) {
     setManagementError('')
     try {
       await axios.patch(
-        `http://127.0.0.1:8000/api/solicitudes/${solicitudGestion.id_solicitud}/`,
+        `${API_URL}/api/solicitudes/${solicitudGestion.id_solicitud}/`,
         { id_departamento: Number(departamentoGestion) },
         { headers: getAuthHeaders() },
       )
 
       await axios.post(
-        'http://127.0.0.1:8000/api/estados/',
+        `${API_URL}/api/estados/`,
         {
           id_solicitud: solicitudGestion.id_solicitud,
           nombre_estado: estadoGestion,

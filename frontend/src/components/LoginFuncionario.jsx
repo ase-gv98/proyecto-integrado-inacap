@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import API_URL from '../services/apiConfig'
 
 function LoginFuncionario({ onLogin }) {
   const [form, setForm] = useState({ username: '', password: '' })
@@ -26,7 +27,7 @@ function LoginFuncionario({ onLogin }) {
     setLoading(true)
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/token/',
+        `${API_URL}/api/token/`,
         form,
       )
       localStorage.setItem('oirs_access_token', response.data.access)
